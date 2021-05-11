@@ -1,0 +1,12 @@
+/* # B2AGV
+MeP2.B2 
+*/
+
+#include <avr/io.h>
+#include <avr/interrupt.h>
+#include <util/delay.h>
+
+void init()
+{
+  
+}
