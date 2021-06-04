@@ -2,6 +2,7 @@
 *       Made by Daan Sijnja
 *       Student at HHS
 *       Studentcode: 20177747
+*       Github: DaanSijnja/Ultrasoon_AVR
 */
 
 #include <avr/io.h>
