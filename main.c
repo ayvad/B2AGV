@@ -165,7 +165,7 @@ void LED(int Richting)
         PORTLEDGeel &= ~(1 << PLEDGeelAchter);
         PORTLEDGeel &= ~(1 << PLEDGeelRechts);
         PORTLEDGeel &= ~(1 << PLEDGeelLinks);
-        }
+    }
 }
 
 
@@ -176,6 +176,11 @@ void init(void)
     DDRLEDRood |= (1 << PLEDRoodAchter);
     DDRLEDRood |= (1 << PLEDRoodRechts);
     DDRLEDRood |= (1 << PLEDRoodLinks);
+
+    DDRLEDGeel |= (1 << PLEDGeelVoor);
+    DDRLEDGeel |= (1 << PLEDGeelAchter);
+    DDRLEDGeel |= (1 << PLEDGeelRechts);
+    DDRLEDGeel |= (1 << PLEDGeelLinks);
 
     DDRLEDRood |= (1 << PLEDNoodstop);
 
@@ -194,14 +199,12 @@ int main(void)
         double distanceUS2 = 0;
         distanceUS1 = distance(ultra_1_trigger);
         distanceUS2 = distance(ultra_2_trigger);
-        while((distanceUS1 > distance_dangerzone) & (distanceUS2 > distance_dangerzone))        //Dus voer alles totdat er iets te dichtbij voor de US-sensor staat
+        while((distanceUS1 > distance_dangerzone) & (distanceUS2 > distance_dangerzone))    //Dus voer alles totdat er iets te dichtbij voor de US-sensor staat
         {
             LED(1);
-            while ( !(PINIRsensor1 && (1 << PIRsensor1) ) )
+            while (PINIRsensor1 && (1 << PIRsensor1))     //Zolang IR sensor geen boom ziet
             {
                 Vooruit(100);
-                distanceUS1 = distance(ultra_1_trigger);
-                distanceUS2 = distance(ultra_2_trigger);
             }
             LED(6);
             distanceUS1 = distance(ultra_1_trigger);
