@@ -1,3 +1,11 @@
+/*
+*   Code made by Ayke Vaders
+*   HHS MeP2.B2 2020-2021 AGV Steppermotor
+*   Studentcode: 20195613
+*/
+
+
+
 #include <avr/io.h>
 #include <util/delay.h>
 #include "steppermotor.h"

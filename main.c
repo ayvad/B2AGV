@@ -1,3 +1,10 @@
+/*
+*   Main code AGV B2
+*   Code made by Ayke Vaders
+*   HHS MeP2.B2 2020-2021
+*   Studentcode: 20195613
+*/
+
 #include <avr/io.h>
 #include <util/delay.h>
 #include  "ultrasoon.h"
@@ -45,21 +52,21 @@
 
 */
 
-#define PIRsensor1 PJ0          //pin 15
-#define PIRsensor2 PJ1          //pin 14
+#define PIRsensor1 PJ0              //pin 15
+#define PIRsensor2 PJ1              //pin 14
 
-#define PLEDRoodVoor PA0        //pin 22
-#define PLEDRoodAchter PA1     //pin 23
-#define PLEDRoodRechts PA2     //pin 24
+#define PLEDRoodVoor PA0            //pin 22
+#define PLEDRoodAchter PA1          //pin 23
+#define PLEDRoodRechts PA2          //pin 24
 #define PLEDRoodLinks PA3           //pin 25
 
 #define PLEDGeelVoor PA4            //pin 26
 #define PLEDGeelAchter PA5          //pin 27
 #define PLEDGeelRechts PA6          //pin 28
-#define PLEDGeelLinks PA7          //pin 29
+#define PLEDGeelLinks PA7           //pin 29
 
-#define PLEDNoodstop PE4           //pin 2
-#define PNoodstop PE3                   //pin 5
+#define PLEDNoodstop PE4            //pin 2
+#define PNoodstop PE3               //pin 5
 
 #define DDRIRsensor1 DDRJ
 #define DDRIRsensor2 DDRJ
@@ -149,10 +156,10 @@ void LED(int Richting)
         PORTLEDGeel |= (1 << PLEDGeelLinks);
         break;
     default :
-        PORTLEDRood |= (1 << PLEDRoodVoor);
-        PORTLEDRood |= (1 << PLEDRoodAchter);
-        PORTLEDRood |= (1 << PLEDRoodRechts);
-        PORTLEDRood |= (1 << PLEDRoodLinks);
+        PORTLEDRood &= ~(1 << PLEDRoodVoor);
+        PORTLEDRood &= ~(1 << PLEDRoodAchter);
+        PORTLEDRood &= ~(1 << PLEDRoodRechts);
+        PORTLEDRood &= ~(1 << PLEDRoodLinks);
 
         PORTLEDGeel &= ~(1 << PLEDGeelVoor);
         PORTLEDGeel &= ~(1 << PLEDGeelAchter);
@@ -172,13 +179,13 @@ void init(void)
 
     DDRLEDRood |= (1 << PLEDNoodstop);
 
+    init_steppermotor();
     init_ultrasoon();
     sei();
 }
 
 int main(void)
 {
-    //int Steps = 512;//512 is een rondje.
     init();
 
     while(1)
@@ -187,7 +194,7 @@ int main(void)
         double distanceUS2 = 0;
         distanceUS1 = distance(ultra_1_trigger);
         distanceUS2 = distance(ultra_2_trigger);
-        while((distanceUS1 > distance_dangerzone) & (distanceUS2 > distance_dangerzone))
+        while((distanceUS1 > distance_dangerzone) & (distanceUS2 > distance_dangerzone))        //Dus voer alles totdat er iets te dichtbij voor de US-sensor staat
         {
             LED(1);
             while ( !(PINIRsensor1 && (1 << PIRsensor1) ) )
