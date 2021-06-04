@@ -161,6 +161,7 @@ void LED(int Richting)
         }
 }
 
+
 void init(void)
 {
     LED(5);
@@ -195,7 +196,7 @@ int main(void)
                 distanceUS1 = distance(ultra_1_trigger);
                 distanceUS2 = distance(ultra_2_trigger);
             }
-            LED(5);
+            LED(6);
             distanceUS1 = distance(ultra_1_trigger);
             distanceUS2 = distance(ultra_2_trigger);
         }
