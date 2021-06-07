@@ -4,12 +4,9 @@
 *   Studentcode: 20195613
 */
 
-
-
 #include <avr/io.h>
 #include <util/delay.h>
 #include "steppermotor.h"
-
 
 void init_steppermotor(void)
 {

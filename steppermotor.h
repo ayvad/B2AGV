@@ -39,6 +39,12 @@
 #define PORTStepper4 PORTL
 
 void init_steppermotor(void);
+
+void steppermotor1Write(int a);
+void steppermotor2Write(int a);
+void steppermotor3Write(int a);
+void steppermotor4Write(int a);
+
 void Vooruit(int Steppermotortijd);
 void Achteruit(int Steppermotortijd);
 void Rechtsaf(int Steppermotortijd);

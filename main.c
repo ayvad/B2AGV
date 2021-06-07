@@ -91,7 +91,7 @@ void LED(int Richting)
 {
     switch (Richting)
     {
-    case 1 :
+    case 1 :            //Vooruit
         PORTLEDRood &= ~(1 << PLEDRoodVoor);
         PORTLEDRood |= (1 << PLEDRoodAchter);
         PORTLEDRood &= ~(1 << PLEDRoodRechts);
@@ -102,7 +102,7 @@ void LED(int Richting)
         PORTLEDGeel &= ~(1 << PLEDGeelRechts);
         PORTLEDGeel &= ~(1 << PLEDGeelLinks);
         break;
-    case 2 :
+    case 2 :        //Achteruit
         PORTLEDRood |= (1 << PLEDRoodVoor);
         PORTLEDRood &= ~(1 << PLEDRoodAchter);
         PORTLEDRood &= ~(1 << PLEDRoodRechts);
@@ -113,7 +113,7 @@ void LED(int Richting)
         PORTLEDGeel &= ~(1 << PLEDGeelRechts);
         PORTLEDGeel &= ~(1 << PLEDGeelLinks);
         break;
-    case 3 :
+    case 3 :        //Rechts
         PORTLEDRood &= ~(1 << PLEDRoodVoor);
         PORTLEDRood &= ~(1 << PLEDRoodAchter);
         PORTLEDRood &= ~(1 << PLEDRoodRechts);
@@ -124,7 +124,7 @@ void LED(int Richting)
         PORTLEDGeel |= (1 << PLEDGeelRechts);
         PORTLEDGeel &= ~(1 << PLEDGeelLinks);
         break;
-    case 4 :
+    case 4 :        //Links
         PORTLEDRood &= ~(1 << PLEDRoodVoor);
         PORTLEDRood &= ~(1 << PLEDRoodAchter);
         PORTLEDRood |= (1 << PLEDRoodRechts);
@@ -135,7 +135,7 @@ void LED(int Richting)
         PORTLEDGeel &= ~(1 << PLEDGeelRechts);
         PORTLEDGeel |= (1 << PLEDGeelLinks);
         break;
-    case 5 :
+    case 5 :        //Stop/stilstand
         PORTLEDRood |= (1 << PLEDRoodVoor);
         PORTLEDRood |= (1 << PLEDRoodAchter);
         PORTLEDRood |= (1 << PLEDRoodRechts);
@@ -146,7 +146,7 @@ void LED(int Richting)
         PORTLEDGeel &= ~(1 << PLEDGeelRechts);
         PORTLEDGeel &= ~(1 << PLEDGeelLinks);
         break;
-    case 6 :
+    case 6 :        //Stoppen voor detectieboom
         PORTLEDRood |= (1 << PLEDRoodVoor);
         PORTLEDRood |= (1 << PLEDRoodAchter);
         PORTLEDRood |= (1 << PLEDRoodRechts);
@@ -157,7 +157,7 @@ void LED(int Richting)
         PORTLEDGeel |= (1 << PLEDGeelRechts);
         PORTLEDGeel |= (1 << PLEDGeelLinks);
         break;
-    default :
+    default :       //Alles uit
         PORTLEDRood &= ~(1 << PLEDRoodVoor);
         PORTLEDRood &= ~(1 << PLEDRoodAchter);
         PORTLEDRood &= ~(1 << PLEDRoodRechts);
@@ -173,7 +173,7 @@ void LED(int Richting)
 
 void init(void)
 {
-    LED(5);
+    //Data direction register:
     DDRLEDRood |= (1 << PLEDRoodVoor);
     DDRLEDRood |= (1 << PLEDRoodAchter);
     DDRLEDRood |= (1 << PLEDRoodRechts);
@@ -186,22 +186,28 @@ void init(void)
 
     DDRLEDRood |= (1 << PLEDNoodstop);
 
+    //init for other files
     init_steppermotor();
     init_ultrasoon();
-    sei();
+    sei();      //enabling global interupts
 }
 
 int main(void)
 {
     //int Steps = 512;//512 is een rondje.
     init();
-
+    LED(1);
+    _delay_ms(2000);
+    LED(3);
+    _delay_ms(2000);
+    LED(2);
+    _delay_ms(2000);
+    LED(4);
+    _delay_ms(2000);
     while(1)
     {
-        double distanceUS1;
-        double distanceUS2;
-        distanceUS1 = distance(ultra_1_trigger);
-        distanceUS2 = distance(ultra_2_trigger);
+        double distanceUS1 = distance(ultra_1_trigger);
+ //    double distanceUS2 = distance(ultra_2_trigger);
         LED(5);
         while((distanceUS1 < distanceToTree)==0)
         {
@@ -216,4 +222,3 @@ int main(void)
     }
     return 0;
 }
-
