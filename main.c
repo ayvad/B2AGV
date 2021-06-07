@@ -11,6 +11,8 @@
 #include <avr/interrupt.h>
 #include "steppermotor.h"
 
+#define distanceToTree 20
+
 //#define delaytime_stepper 1000
 #define distance_dangerzone 15
 
@@ -191,25 +193,27 @@ void init(void)
 
 int main(void)
 {
+    //int Steps = 512;//512 is een rondje.
     init();
 
     while(1)
     {
-        double distanceUS1 = 0;
-        double distanceUS2 = 0;
+        double distanceUS1;
+        double distanceUS2;
         distanceUS1 = distance(ultra_1_trigger);
         distanceUS2 = distance(ultra_2_trigger);
-        while((distanceUS1 > distance_dangerzone) & (distanceUS2 > distance_dangerzone))    //Dus voer alles totdat er iets te dichtbij voor de US-sensor staat
+        LED(5);
+        while((distanceUS1 < distanceToTree)==0)
         {
+            Vooruit(100);
             LED(1);
-            while (PINIRsensor1 && (1 << PIRsensor1))     //Zolang IR sensor geen boom ziet
-            {
-                Vooruit(100);
-            }
-            LED(6);
             distanceUS1 = distance(ultra_1_trigger);
-            distanceUS2 = distance(ultra_2_trigger);
+            //  distanceUS2 = distance(ultra_2_trigger);
         }
+        LED(6);
+        _delay_ms(1000);
+
     }
     return 0;
 }
+
