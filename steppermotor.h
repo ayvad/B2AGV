@@ -45,6 +45,7 @@ void steppermotor2Write(int a);
 void steppermotor3Write(int a);
 void steppermotor4Write(int a);
 
+//512 is een rondje.
 void Vooruit(int Steppermotortijd);
 void Achteruit(int Steppermotortijd);
 void Rechtsaf(int Steppermotortijd);

@@ -12,6 +12,7 @@
 #include "steppermotor.h"
 
 #define distanceToTree 20
+#define TreeAmount 3
 
 //#define delaytime_stepper 1000
 #define distance_dangerzone 15
@@ -91,7 +92,7 @@ void LED(int Richting)
 {
     switch (Richting)
     {
-    case 1 :            //Vooruit
+    case 1 :		//Vooruit
         PORTLEDRood &= ~(1 << PLEDRoodVoor);
         PORTLEDRood |= (1 << PLEDRoodAchter);
         PORTLEDRood &= ~(1 << PLEDRoodRechts);
@@ -102,7 +103,7 @@ void LED(int Richting)
         PORTLEDGeel &= ~(1 << PLEDGeelRechts);
         PORTLEDGeel &= ~(1 << PLEDGeelLinks);
         break;
-    case 2 :        //Achteruit
+    case 2 :		//Achteruit
         PORTLEDRood |= (1 << PLEDRoodVoor);
         PORTLEDRood &= ~(1 << PLEDRoodAchter);
         PORTLEDRood &= ~(1 << PLEDRoodRechts);
@@ -113,7 +114,7 @@ void LED(int Richting)
         PORTLEDGeel &= ~(1 << PLEDGeelRechts);
         PORTLEDGeel &= ~(1 << PLEDGeelLinks);
         break;
-    case 3 :        //Rechts
+    case 3 :		//Rechtsaf
         PORTLEDRood &= ~(1 << PLEDRoodVoor);
         PORTLEDRood &= ~(1 << PLEDRoodAchter);
         PORTLEDRood &= ~(1 << PLEDRoodRechts);
@@ -124,7 +125,7 @@ void LED(int Richting)
         PORTLEDGeel |= (1 << PLEDGeelRechts);
         PORTLEDGeel &= ~(1 << PLEDGeelLinks);
         break;
-    case 4 :        //Links
+    case 4 :		//Linkaf
         PORTLEDRood &= ~(1 << PLEDRoodVoor);
         PORTLEDRood &= ~(1 << PLEDRoodAchter);
         PORTLEDRood |= (1 << PLEDRoodRechts);
@@ -135,7 +136,7 @@ void LED(int Richting)
         PORTLEDGeel &= ~(1 << PLEDGeelRechts);
         PORTLEDGeel |= (1 << PLEDGeelLinks);
         break;
-    case 5 :        //Stop/stilstand
+    case 5 :		//Stop/stilstand
         PORTLEDRood |= (1 << PLEDRoodVoor);
         PORTLEDRood |= (1 << PLEDRoodAchter);
         PORTLEDRood |= (1 << PLEDRoodRechts);
@@ -146,7 +147,7 @@ void LED(int Richting)
         PORTLEDGeel &= ~(1 << PLEDGeelRechts);
         PORTLEDGeel &= ~(1 << PLEDGeelLinks);
         break;
-    case 6 :        //Stoppen voor detectieboom
+    case 6 :		//Stoppen voor boom
         PORTLEDRood |= (1 << PLEDRoodVoor);
         PORTLEDRood |= (1 << PLEDRoodAchter);
         PORTLEDRood |= (1 << PLEDRoodRechts);
@@ -157,7 +158,7 @@ void LED(int Richting)
         PORTLEDGeel |= (1 << PLEDGeelRechts);
         PORTLEDGeel |= (1 << PLEDGeelLinks);
         break;
-    default :       //Alles uit
+    default :		//Alles uit
         PORTLEDRood &= ~(1 << PLEDRoodVoor);
         PORTLEDRood &= ~(1 << PLEDRoodAchter);
         PORTLEDRood &= ~(1 << PLEDRoodRechts);
@@ -173,7 +174,7 @@ void LED(int Richting)
 
 void init(void)
 {
-    //Data direction register:
+    LED(5);
     DDRLEDRood |= (1 << PLEDRoodVoor);
     DDRLEDRood |= (1 << PLEDRoodAchter);
     DDRLEDRood |= (1 << PLEDRoodRechts);
@@ -186,15 +187,14 @@ void init(void)
 
     DDRLEDRood |= (1 << PLEDNoodstop);
 
-    //init for other files
     init_steppermotor();
     init_ultrasoon();
     sei();      //enabling global interupts
+    int TreeCounter = 0;
 }
 
 int main(void)
 {
-    //int Steps = 512;//512 is een rondje.
     init();
     LED(1);
     _delay_ms(2000);
@@ -206,18 +206,48 @@ int main(void)
     _delay_ms(2000);
     while(1)
     {
-        double distanceUS1 = distance(ultra_1_trigger);
- //    double distanceUS2 = distance(ultra_2_trigger);
-        LED(5);
-        while((distanceUS1 < distanceToTree)==0)
-        {
-            Vooruit(100);
-            LED(1);
-            distanceUS1 = distance(ultra_1_trigger);
-            //  distanceUS2 = distance(ultra_2_trigger);
-        }
-        LED(6);
-        _delay_ms(1000);
+        double distanceUS1 = 0;
+      //  double distanceUS2 = 0;
+        distanceUS1 = distance(ultra_1_trigger);
+        //distanceUS2 = distance(ultra_2_trigger);
+            
+            while ((distanceUS1 < distance_dangerzone)==0)     //Zolang US sensor geen boom ziet
+            {
+				LED(1);
+                Vooruit(10);
+				distanceUS1 = distance(ultra_1_trigger);
+            }
+            LED(6);
+			_delay_ms(2000);
+			
+			while ((distanceUS1 < distance_dangerzone)==0)     //Zolang US sensor geen boom ziet
+            {
+				LED(3);
+                Rechts(10);
+				distanceUS1 = distance(ultra_1_trigger);
+            }
+            LED(6);
+			_delay_ms(2000);
+			
+			while ((distanceUS1 < distance_dangerzone)==0)     //Zolang US sensor geen boom ziet
+            {
+				LED(2);
+                Achteruit(10);
+				distanceUS1 = distance(ultra_1_trigger);
+            }
+            LED(6);
+			_delay_ms(2000);
+			
+			while ((distanceUS1 < distance_dangerzone)==0)     //Zolang US sensor geen boom ziet
+            {
+				LED(4);
+                Linkaf(10);
+				distanceUS1 = distance(ultra_1_trigger);
+            }
+            LED(6);
+			_delay_ms(2000);
+			LED(5);
+			
 
     }
     return 0;

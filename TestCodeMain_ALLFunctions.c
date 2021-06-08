@@ -1,6 +1,5 @@
 int main(void)
 {
-    //int Steps = 512;//512 is een rondje.
     init();
     LED(1);
     _delay_ms(2000);
