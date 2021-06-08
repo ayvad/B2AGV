@@ -11,6 +11,12 @@
 #include <avr/interrupt.h>
 #include "steppermotor.h"
 
+<<<<<<< Updated upstream
+=======
+#define distanceToTree 20
+#define TreeAmount 3
+
+>>>>>>> Stashed changes
 //#define delaytime_stepper 1000
 #define distance_dangerzone 15
 
@@ -186,7 +192,12 @@ void init(void)
 
     init_steppermotor();
     init_ultrasoon();
+<<<<<<< Updated upstream
     sei();
+=======
+    sei();      //enabling global interupts
+    int TreeCounter = 0;
+>>>>>>> Stashed changes
 }
 
 int main(void)

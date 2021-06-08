@@ -7,7 +7,7 @@
 #ifndef STEPPERMOTOR_H_INCLUDED
 #define STEPPERMOTOR_H_INCLUDED
 
-#define delaytime_stepper 1000      // in useconds
+#define delaytime_stepper 1000      // in us
 #define PStepper1_1 PC7     //pin 30
 #define PStepper1_2 PC5     //pin 32
 #define PStepper1_3 PC3     //pin 34
