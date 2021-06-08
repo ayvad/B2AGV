@@ -89,7 +89,11 @@ void steppermotor1Write(int a)
                 PORTStepper1 |= (1 << PStepper1_4);
                 break;
             }
-            _delay_us(delaytime_stepper);
+           // _delay_us(delaytime_stepper);
+           for(int d = 0; d < delaytime_StepperForLoop;d++)
+           {
+
+           }
         }
         a = 0;
     }
@@ -149,7 +153,11 @@ void steppermotor1Write(int a)
                 PORTStepper1 |= (1 << PStepper1_4);
                 break;
             }
-            _delay_us(delaytime_stepper);
+           // _delay_us(delaytime_stepper);
+           for(int d = 0; d < delaytime_StepperForLoop;d++)
+           {
+
+           }
         }
         a = 0;
     }
@@ -213,7 +221,11 @@ void steppermotor2Write(int a)
                 PORTStepper2 |= (1 << PStepper2_4);
                 break;
             }
-            _delay_us(delaytime_stepper);
+           // _delay_us(delaytime_stepper);
+           for(int d = 0; d < delaytime_StepperForLoop;d++)
+           {
+
+           }
         }
         a = 0;
     }
@@ -273,7 +285,11 @@ void steppermotor2Write(int a)
                 PORTStepper2 |= (1 << PStepper2_4);
                 break;
             }
-            _delay_us(delaytime_stepper);
+           // _delay_us(delaytime_stepper);
+           for(int d = 0; d < delaytime_StepperForLoop;d++)
+           {
+
+           }
         }
         a = 0;
     }
@@ -337,7 +353,11 @@ void steppermotor3Write(int a)
                 PORTStepper3 |= (1 << PStepper3_4);
                 break;
             }
-            _delay_us(delaytime_stepper);
+           // _delay_us(delaytime_stepper);
+           for(int d = 0; d < delaytime_StepperForLoop;d++)
+           {
+
+           }
         }
         a = 0;
     }
@@ -397,7 +417,11 @@ void steppermotor3Write(int a)
                 PORTStepper3 |= (1 << PStepper3_4);
                 break;
             }
-            _delay_us(delaytime_stepper);
+           // _delay_us(delaytime_stepper);
+           for(int d = 0; d < delaytime_StepperForLoop;d++)
+           {
+
+           }
         }
         a = 0;
     }
@@ -461,7 +485,11 @@ void steppermotor4Write(int a)
                 PORTStepper4 |= (1 << PStepper4_4);
                 break;
             }
-            _delay_us(delaytime_stepper);
+           // _delay_us(delaytime_stepper);
+           for(int d = 0; d < delaytime_StepperForLoop;d++)
+           {
+
+           }
         }
         a = 0;
     }
@@ -521,7 +549,11 @@ void steppermotor4Write(int a)
                 PORTStepper4 |= (1 << PStepper4_4);
                 break;
             }
-            _delay_us(delaytime_stepper);
+           // _delay_us(delaytime_stepper);
+           for(int d = 0; d < delaytime_StepperForLoop;d++)
+           {
+
+           }
         }
         a = 0;
     }
@@ -558,7 +590,7 @@ void Rechtsaf(int Steppermotortijd)
     int j = 0;
     while (j< Steppermotortijd)
     {
-        steppermotor1Write(1);
+        steppermotor1Write(2);
         steppermotor2Write(2);
         steppermotor3Write(1);
         steppermotor4Write(2);
@@ -573,7 +605,7 @@ void Linksaf(int Steppermotortijd)
     {
         steppermotor1Write(2);
         steppermotor2Write(1);
-        steppermotor3Write(2);
+        steppermotor3Write(1);
         steppermotor4Write(1);
         j++;
     }

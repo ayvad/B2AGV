@@ -196,7 +196,7 @@ void init(void)
 
 int main(void)
 {
-    double distanceUS1 = 0;
+  //  double distanceUS1 = 0;
     init();
     LED(1);
     _delay_ms(200);
@@ -230,14 +230,24 @@ int main(void)
             while ((distance(ultra_1_trigger) < distance_dangerzone)== 0)     //Zolang US sensor geen boom ziet
             {
 				LED(1);
-                Vooruit(80);
+                Vooruit(100);
+				//distanceUS1 = distance(ultra_1_trigger);
+            }
+            LED(6);
+ /*           Vooruit(200);
+            while ((distance(ultra_1_trigger) < distance_dangerzone)== 0)     //Zolang US sensor geen boom ziet
+            {
+				LED(1);
+                Vooruit(100);
 				//distanceUS1 = distance(ultra_1_trigger);
             }
             LED(6);
 
 
 
-/*
+
+
+
 			while ((distanceUS1 < distance_dangerzone)==0)     //Zolang US sensor geen boom ziet
             {
 				LED(3);
