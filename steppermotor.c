@@ -535,7 +535,7 @@ void Vooruit(int Steppermotortijd)
         steppermotor1Write(1);
         steppermotor2Write(1);
         steppermotor3Write(1);
-        steppermotor4Write(1);
+        steppermotor4Write(2);
         j++;
     }
 }
@@ -548,7 +548,7 @@ void Achteruit(int Steppermotortijd)
         steppermotor1Write(2);
         steppermotor2Write(2);
         steppermotor3Write(2);
-        steppermotor4Write(2);
+        steppermotor4Write(1);
         j++;
     }
 }

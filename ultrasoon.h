@@ -15,7 +15,7 @@
     #define ultra_1_trigger PD0 //trigger pins for the ultrasoon 1    pin 21
     #define ultra_2_trigger PD1 // if you need a second ultrasoon   pin 20
 
-    #define RETURNVALUE 100
+    #define RETURNVALUE 60
 
 //settings PCINT ** I recommend you to use PCINT0 because its one of the few PCINT'S that is one Register and not spread between multiple
     #define PCDDR DDRB
