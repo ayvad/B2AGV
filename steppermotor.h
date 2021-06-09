@@ -7,7 +7,8 @@
 #ifndef STEPPERMOTOR_H_INCLUDED
 #define STEPPERMOTOR_H_INCLUDED
 
-#define delaytime_stepper 1000      // in useconds
+#define delaytime_StepperForLoop 900
+#define delaytime_stepper 700      // in useconds
 #define PStepper1_1 PC7     //pin 30
 #define PStepper1_2 PC5     //pin 32
 #define PStepper1_3 PC3     //pin 34
@@ -39,6 +40,13 @@
 #define PORTStepper4 PORTL
 
 void init_steppermotor(void);
+
+void steppermotor1Write(int a);
+void steppermotor2Write(int a);
+void steppermotor3Write(int a);
+void steppermotor4Write(int a);
+
+//512 is een rondje.
 void Vooruit(int Steppermotortijd);
 void Achteruit(int Steppermotortijd);
 void Rechtsaf(int Steppermotortijd);

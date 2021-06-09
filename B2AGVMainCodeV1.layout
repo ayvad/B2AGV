@@ -2,35 +2,32 @@
 <CodeBlocks_layout_file>
 	<FileVersion major="1" minor="0" />
 	<ActiveTarget name="Debug" />
-	<File name="steppermotor.c" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="main.c" open="1" top="1" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="190" topLine="9" />
+			<Cursor1 position="6974" topLine="191" />
 		</Cursor>
 		<Folding>
-			<Collapse line="37" />
-			<Collapse line="161" />
-			<Collapse line="285" />
-			<Collapse line="409" />
+			<Collapse line="24" />
 		</Folding>
 	</File>
-	<File name="main.c" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="steppermotor.h" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="4631" topLine="142" />
+			<Cursor1 position="175" topLine="26" />
 		</Cursor>
 	</File>
 	<File name="ultrasoon.c" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="97" topLine="0" />
+			<Cursor1 position="1338" topLine="54" />
+		</Cursor>
+	</File>
+	<File name="steppermotor.c" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="20585" topLine="594" />
 		</Cursor>
 	</File>
 	<File name="ultrasoon.h" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="97" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="steppermotor.h" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="107" topLine="19" />
+			<Cursor1 position="134" topLine="1" />
 		</Cursor>
 	</File>
 </CodeBlocks_layout_file>

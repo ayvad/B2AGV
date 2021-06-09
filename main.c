@@ -11,8 +11,11 @@
 #include <avr/interrupt.h>
 #include "steppermotor.h"
 
+#define distanceToTree 20
+#define TreeAmount 3
+
 //#define delaytime_stepper 1000
-#define distance_dangerzone 15
+#define distance_dangerzone 20
 
 //Ultrasoon1 Trigger PD0        pin 21
 //Ultrasoon1 Echo PCINT0        pin 53
@@ -89,7 +92,7 @@ void LED(int Richting)
 {
     switch (Richting)
     {
-    case 1 :
+    case 1 :		//Vooruit
         PORTLEDRood &= ~(1 << PLEDRoodVoor);
         PORTLEDRood |= (1 << PLEDRoodAchter);
         PORTLEDRood &= ~(1 << PLEDRoodRechts);
@@ -100,7 +103,7 @@ void LED(int Richting)
         PORTLEDGeel &= ~(1 << PLEDGeelRechts);
         PORTLEDGeel &= ~(1 << PLEDGeelLinks);
         break;
-    case 2 :
+    case 2 :		//Achteruit
         PORTLEDRood |= (1 << PLEDRoodVoor);
         PORTLEDRood &= ~(1 << PLEDRoodAchter);
         PORTLEDRood &= ~(1 << PLEDRoodRechts);
@@ -111,7 +114,7 @@ void LED(int Richting)
         PORTLEDGeel &= ~(1 << PLEDGeelRechts);
         PORTLEDGeel &= ~(1 << PLEDGeelLinks);
         break;
-    case 3 :
+    case 3 :		//Rechtsaf
         PORTLEDRood &= ~(1 << PLEDRoodVoor);
         PORTLEDRood &= ~(1 << PLEDRoodAchter);
         PORTLEDRood &= ~(1 << PLEDRoodRechts);
@@ -122,7 +125,7 @@ void LED(int Richting)
         PORTLEDGeel |= (1 << PLEDGeelRechts);
         PORTLEDGeel &= ~(1 << PLEDGeelLinks);
         break;
-    case 4 :
+    case 4 :		//Linkaf
         PORTLEDRood &= ~(1 << PLEDRoodVoor);
         PORTLEDRood &= ~(1 << PLEDRoodAchter);
         PORTLEDRood |= (1 << PLEDRoodRechts);
@@ -133,7 +136,7 @@ void LED(int Richting)
         PORTLEDGeel &= ~(1 << PLEDGeelRechts);
         PORTLEDGeel |= (1 << PLEDGeelLinks);
         break;
-    case 5 :
+    case 5 :		//Stop/stilstand
         PORTLEDRood |= (1 << PLEDRoodVoor);
         PORTLEDRood |= (1 << PLEDRoodAchter);
         PORTLEDRood |= (1 << PLEDRoodRechts);
@@ -144,7 +147,7 @@ void LED(int Richting)
         PORTLEDGeel &= ~(1 << PLEDGeelRechts);
         PORTLEDGeel &= ~(1 << PLEDGeelLinks);
         break;
-    case 6 :
+    case 6 :		//Stoppen voor boom
         PORTLEDRood |= (1 << PLEDRoodVoor);
         PORTLEDRood |= (1 << PLEDRoodAchter);
         PORTLEDRood |= (1 << PLEDRoodRechts);
@@ -155,7 +158,7 @@ void LED(int Richting)
         PORTLEDGeel |= (1 << PLEDGeelRechts);
         PORTLEDGeel |= (1 << PLEDGeelLinks);
         break;
-    default :
+    default :		//Alles uit
         PORTLEDRood &= ~(1 << PLEDRoodVoor);
         PORTLEDRood &= ~(1 << PLEDRoodAchter);
         PORTLEDRood &= ~(1 << PLEDRoodRechts);
@@ -186,30 +189,93 @@ void init(void)
 
     init_steppermotor();
     init_ultrasoon();
-    sei();
+    sei();      //enabling global interupts
+    int TreeCounter = 0;
+
 }
 
 int main(void)
 {
+  //  double distanceUS1 = 0;
     init();
-
+    LED(1);
+    _delay_ms(200);
+    LED(3);
+    _delay_ms(200);
+    LED(2);
+    _delay_ms(200);
+    LED(4);
+    _delay_ms(200);
+        LED(1);
+    _delay_ms(200);
+    LED(3);
+    _delay_ms(200);
+    LED(2);
+    _delay_ms(200);
+    LED(4);
+    _delay_ms(200);
+        LED(1);
+    _delay_ms(200);
+    LED(3);
+    _delay_ms(200);
+    LED(2);
+    _delay_ms(200);
+    LED(4);
     while(1)
     {
-        double distanceUS1 = 0;
-        double distanceUS2 = 0;
-        distanceUS1 = distance(ultra_1_trigger);
-        distanceUS2 = distance(ultra_2_trigger);
-        while((distanceUS1 > distance_dangerzone) & (distanceUS2 > distance_dangerzone))    //Dus voer alles totdat er iets te dichtbij voor de US-sensor staat
-        {
-            LED(1);
-            while (PINIRsensor1 && (1 << PIRsensor1))     //Zolang IR sensor geen boom ziet
+      //  double distanceUS2 = 0;
+     //   distanceUS1 = distance(ultra_1_trigger);
+        //distanceUS2 = distance(ultra_2_trigger);
+
+            while ((distance(ultra_1_trigger) < distance_dangerzone)== 0)     //Zolang US sensor geen boom ziet
             {
+				LED(1);
                 Vooruit(100);
+				//distanceUS1 = distance(ultra_1_trigger);
             }
             LED(6);
-            distanceUS1 = distance(ultra_1_trigger);
-            distanceUS2 = distance(ultra_2_trigger);
-        }
+ /*           Vooruit(200);
+            while ((distance(ultra_1_trigger) < distance_dangerzone)== 0)     //Zolang US sensor geen boom ziet
+            {
+				LED(1);
+                Vooruit(100);
+				//distanceUS1 = distance(ultra_1_trigger);
+            }
+            LED(6);
+
+
+
+
+
+
+			while ((distanceUS1 < distance_dangerzone)==0)     //Zolang US sensor geen boom ziet
+            {
+				LED(3);
+                Rechtsaf(10);
+				distanceUS1 = distance(ultra_1_trigger);
+            }
+            LED(6);
+			_delay_ms(2000);
+
+			while ((distanceUS1 < distance_dangerzone)==0)     //Zolang US sensor geen boom ziet
+            {
+				LED(2);
+                Achteruit(10);
+				distanceUS1 = distance(ultra_1_trigger);
+            }
+            LED(6);
+			_delay_ms(2000);
+
+			while ((distanceUS1 < distance_dangerzone)==0)     //Zolang US sensor geen boom ziet
+            {
+				LED(4);
+                Linksaf(10);
+				distanceUS1 = distance(ultra_1_trigger);
+            }
+            LED(6);
+			_delay_ms(2000);
+			LED(5);
+*/
     }
     return 0;
 }
